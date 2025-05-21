@@ -1,6 +1,10 @@
 name: Check build
 
 on:
+  # TODO: Remove after test
+  push:
+    branches:
+      - evgeny-tansi-visualization-tool
   pull_request:
   workflow_dispatch:
 

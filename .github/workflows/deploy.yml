@@ -1,9 +1,11 @@
 name: Deploy to GitHub Pages
 
 on:
+  # TODO: Remove after test
   push:
     branches:
       - main
+      - evgeny-tansi-visualization-tool
 
 jobs:
   build:
