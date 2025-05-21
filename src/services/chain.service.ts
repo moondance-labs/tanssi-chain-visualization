@@ -64,7 +64,7 @@ export const fetchChainData = async (url: string): Promise<ChainParamsType> => {
         runtime = arr.find((item: ItemType) => item.tag_name.endsWith('-starlight'));
       }
 
-      return [client?.tag_name?.slice(1), runtime?.tag_name?.replace('runtime-', '')];
+      return [client?.tag_name?.slice(1).split('-')[0], runtime?.tag_name?.replace('runtime-', '')];
     });
 
   const lastBlock = await safePost(
