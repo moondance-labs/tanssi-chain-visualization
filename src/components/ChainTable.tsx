@@ -1,5 +1,6 @@
 import type { ChainParamsType } from '../types/chain-params.type.ts';
 import { Box, CircularProgress, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 export const ChainTable = ({
   title,
@@ -12,6 +13,8 @@ export const ChainTable = ({
   isLoading: boolean;
   error: string;
 }) => {
+  const theme = useTheme();
+
   return (
     <Box pt="20px">
       <Typography variant="h5">{title}</Typography>
@@ -47,7 +50,7 @@ export const ChainTable = ({
                   key={chain.network}
                   sx={{
                     '&:hover': {
-                      backgroundColor: '#f5f5f5',
+                      backgroundColor: theme.palette.action.hover,
                       cursor: 'pointer',
                     },
                   }}
