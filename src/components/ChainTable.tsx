@@ -1,5 +1,15 @@
 import type { ChainParamsType } from '../types/chain-params.type.ts';
-import { Box, CircularProgress, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
+import {
+  alpha,
+  Box,
+  CircularProgress,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Typography,
+} from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
 export const ChainTable = ({
@@ -14,6 +24,8 @@ export const ChainTable = ({
   error: string;
 }) => {
   const theme = useTheme();
+  const errorColor = alpha(theme.palette.error.main, 0.1);
+  const successColor = alpha(theme.palette.success.main, 0.1);
 
   return (
     <Box pt="20px">
@@ -21,7 +33,14 @@ export const ChainTable = ({
       <Box sx={{ overflowX: 'auto' }}>
         <Table>
           <TableHead>
-            <TableRow>
+            <TableRow
+              sx={{
+                backgroundColor: (theme) => theme.palette.action.hover,
+                '& .MuiTableCell-head': {
+                  fontWeight: 'bold',
+                },
+              }}
+            >
               <TableCell style={{ minWidth: '280px' }}>Network</TableCell>
               <TableCell>Current Client</TableCell>
               <TableCell>Latest Client</TableCell>
@@ -56,10 +75,40 @@ export const ChainTable = ({
                   }}
                 >
                   <TableCell>{chain.network}</TableCell>
-                  <TableCell>{chain.currentClient}</TableCell>
-                  <TableCell>{chain.latestClient}</TableCell>
-                  <TableCell>{chain.currentRuntime}</TableCell>
-                  <TableCell>{chain.latestRuntime}</TableCell>
+                  <TableCell
+                    sx={{
+                      backgroundColor: chain.currentClient === chain.latestClient ? successColor : errorColor,
+                    }}
+                  >
+                    {chain.currentClient}
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      backgroundColor: chain.currentClient === chain.latestClient ? successColor : errorColor,
+                    }}
+                  >
+                    {chain.latestClient}
+                  </TableCell>
+
+                  {/* currentRuntime vs latestRuntime */}
+                  <TableCell
+                    sx={{
+                      backgroundColor:
+                        parseInt(chain.currentRuntime) < parseInt(chain.latestRuntime)
+                          ? alpha(theme.palette.error.main, 0.1)
+                          : alpha(theme.palette.success.main, 0.1),
+                    }}
+                  >
+                    {chain.currentRuntime}
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      backgroundColor:
+                        parseInt(chain.currentRuntime) < parseInt(chain.latestRuntime) ? errorColor : successColor,
+                    }}
+                  >
+                    {chain.latestRuntime}
+                  </TableCell>
                   <TableCell>{chain.lastBlock}</TableCell>
                 </TableRow>
               ))
