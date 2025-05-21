@@ -14,3 +14,5 @@ nvm exec npm i
 nvm exec npm run dev
 ```
 
+### Live App:
+https://moondance-labs.github.io/tanssi-chain-visualization/
