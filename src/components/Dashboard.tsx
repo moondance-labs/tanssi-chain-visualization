@@ -3,23 +3,27 @@ import { ChainTable } from './ChainTable.tsx';
 import { Box, IconButton, Typography } from '@mui/material';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 
+const parachainUrls = [
+  'https://stagebox.tanssi-dev.network',
+  'https://fraa-flashbox-rpc.a.stagenet.tanssi.network',
+  'https://dancebox.tanssi-api.network',
+];
+
+const relaychainUrls = ['https://stagelight.tanssi-dev.network', 'https://dancelight.tanssi-api.network'];
+
 export const Dashboard = () => {
   const {
     chainParams: parachains,
     isLoading: isParachainsLoading,
     error: parachainError,
     fetchData: fetchParachains,
-  } = useChains([
-    'https://stagebox.tanssi-dev.network',
-    'https://fraa-flashbox-rpc.a.stagenet.tanssi.network',
-    'https://dancebox.tanssi-api.network',
-  ]);
+  } = useChains(parachainUrls);
   const {
     chainParams: relaychains,
     isLoading: isRelaychainsLoading,
     error: relaychainError,
     fetchData: fetchRelaychains,
-  } = useChains(['https://stagelight.tanssi-dev.network', 'https://dancelight.tanssi-api.network']);
+  } = useChains(relaychainUrls);
 
   return (
     <Box>
