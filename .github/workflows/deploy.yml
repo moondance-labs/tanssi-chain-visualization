@@ -1,11 +1,9 @@
 name: Deploy to GitHub Pages
 
 on:
-  # TODO: Remove after test
   push:
     branches:
       - main
-      - evgeny-tansi-visualization-tool
   workflow_dispatch:
 
 jobs:
@@ -45,8 +43,7 @@ jobs:
     name: Deploy
     needs: build
     runs-on: ubuntu-latest
-    # TODO: Remove after test
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/evgeny-tansi-visualization-tool'
+    if: github.ref == 'refs/heads/main'
 
     steps:
       - name: Download artifact
