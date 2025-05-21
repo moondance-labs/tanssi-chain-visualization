@@ -94,9 +94,7 @@ export const ChainTable = ({
                   <TableCell
                     sx={{
                       backgroundColor:
-                        parseInt(chain.currentRuntime) < parseInt(chain.latestRuntime)
-                          ? alpha(theme.palette.error.main, 0.1)
-                          : alpha(theme.palette.success.main, 0.1),
+                        parseInt(chain.currentRuntime) < parseInt(chain.latestRuntime) ? errorColor : successColor,
                     }}
                   >
                     {chain.currentRuntime}
