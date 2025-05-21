@@ -44,7 +44,8 @@ jobs:
     name: Deploy
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    # TODO: Remove after test
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/evgeny-tansi-visualization-tool'
 
     steps:
       - name: Download artifact
