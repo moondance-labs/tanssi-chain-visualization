@@ -44,9 +44,7 @@ export const fetchChainData = async (url: string): Promise<ChainParamsType> => {
     }),
   ).then((res) => res?.result?.split('-')[0]);
 
-  let latestReleases = [];
-
-  latestReleases = await fetch('https://api.github.com/repos/moondance-labs/tanssi/releases', {
+  const latestReleases = await fetch('https://api.github.com/repos/moondance-labs/tanssi/releases', {
     headers: getHeaders('github'),
   })
     .then((r) => (r.ok ? r.json() : []))
@@ -64,7 +62,7 @@ export const fetchChainData = async (url: string): Promise<ChainParamsType> => {
         runtime = arr.find((item: ItemType) => item.tag_name.endsWith('-starlight'));
       }
 
-      return [client?.tag_name?.slice(1).split('-')[0], runtime?.tag_name?.replace('runtime-', '')];
+      return [client?.tag_name?.slice(1).split('-')[0], runtime?.tag_name?.replace(/runtime-|-para|-starlight/g, '')];
     });
 
   const lastBlock = await safePost(
