@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - evgeny-tansi-visualization-tool
   workflow_dispatch:
 
 jobs:
