@@ -1,0 +1,36 @@
+import type { ChainParamsType } from '../types/chain-params.type.ts';
+import { useEffect, useState } from 'react';
+import { fetchChainData } from '../services/chain.service.ts';
+
+export const useChains = (
+  urls: string[],
+): { chainParams: ChainParamsType[]; isLoading: boolean; error: string; fetchData: () => void } => {
+  const [chainParams, setChainParams] = useState<ChainParamsType[]>([]);
+  const [isLoading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    setLoading(true);
+    setError('');
+
+    try {
+      const promises = [];
+      for (const url of urls) {
+        promises.push(fetchChainData(url));
+      }
+      const data = await Promise.all(promises);
+      setChainParams(data);
+    } catch (e) {
+      console.error(e);
+      setError('Something went wrong, check logs.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { chainParams, isLoading, error, fetchData };
+};
