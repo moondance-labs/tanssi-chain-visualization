@@ -5,4 +5,6 @@ export type ChainParamsType = {
   currentRuntime: string;
   latestRuntime: string;
   lastBlock: string;
+  clientReleaseUrl: string;
+  runtimeReleaseUrl: string;
 };

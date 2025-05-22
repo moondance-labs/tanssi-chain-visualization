@@ -13,7 +13,8 @@ const getHeaders = (target: string, extra = {}): HeadersInit => {
   return headers;
 };
 
-type ItemType = { tag_name: string; name: string };
+type ReleaseItemType = { tag_name: string; name: string; html_url: string };
+const defaultRelease = { tag_name: '', name: '', html_url: '' } as ReleaseItemType;
 
 export const fetchChainData = async (url: string): Promise<ChainParamsType> => {
   const runtimeVersion = await safePost(
@@ -44,25 +45,35 @@ export const fetchChainData = async (url: string): Promise<ChainParamsType> => {
     }),
   ).then((res) => res?.result?.split('-')[0]);
 
-  const latestReleases = await fetch('https://api.github.com/repos/moondance-labs/tanssi/releases', {
+  const latestReleases: {
+    latestClient: string;
+    latestRuntime: string;
+    clientReleaseUrl: string;
+    runtimeReleaseUrl: string;
+  } = await fetch('https://api.github.com/repos/moondance-labs/tanssi/releases', {
     headers: getHeaders('github'),
   })
     .then((r) => (r.ok ? r.json() : []))
-    .then((arr) => {
-      let client;
-      let runtime;
+    .then((arr: ReleaseItemType[]) => {
+      let clientRelease: ReleaseItemType = defaultRelease;
+      let runtimeRelease: ReleaseItemType = defaultRelease;
 
       if (systemChain.includes('box')) {
-        client = arr.find((item: ItemType) => item.name.includes('Tanssi-para'));
-        runtime = arr.find((item: ItemType) => item.tag_name.endsWith('-para'));
+        clientRelease = arr.find((item: ReleaseItemType) => item.name.includes('Tanssi-para')) || defaultRelease;
+        runtimeRelease = arr.find((item: ReleaseItemType) => item.tag_name.endsWith('-para')) || defaultRelease;
       }
 
       if (systemChain.includes('light')) {
-        client = arr.find((item: ItemType) => item.name.includes('Tanssi-relay'));
-        runtime = arr.find((item: ItemType) => item.tag_name.endsWith('-starlight'));
+        clientRelease = arr.find((item: ReleaseItemType) => item.name.includes('Tanssi-relay')) || defaultRelease;
+        runtimeRelease = arr.find((item: ReleaseItemType) => item.tag_name.endsWith('-starlight')) || defaultRelease;
       }
 
-      return [client?.tag_name?.slice(1).split('-')[0], runtime?.tag_name?.replace(/runtime-|-para|-starlight/g, '')];
+      return {
+        latestClient: clientRelease?.tag_name?.slice(1).split('-')[0],
+        latestRuntime: runtimeRelease?.tag_name?.replace(/runtime-|-para|-starlight/g, ''),
+        clientReleaseUrl: clientRelease.html_url,
+        runtimeReleaseUrl: runtimeRelease.html_url,
+      };
     });
 
   const lastBlock = await safePost(
@@ -78,9 +89,11 @@ export const fetchChainData = async (url: string): Promise<ChainParamsType> => {
   return {
     network: `${systemChain} (${specName})`,
     currentClient: systemVersion,
-    latestClient: latestReleases[0],
+    latestClient: latestReleases.latestClient,
     currentRuntime: String(runtimeVersion.result.specVersion),
-    latestRuntime: latestReleases[1],
+    latestRuntime: latestReleases.latestRuntime,
     lastBlock: timeAgo(Number(decodeScaleU64(lastBlock))),
+    clientReleaseUrl: latestReleases.clientReleaseUrl,
+    runtimeReleaseUrl: latestReleases.runtimeReleaseUrl,
   };
 };

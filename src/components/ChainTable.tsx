@@ -9,6 +9,7 @@ import {
   TableHead,
   TableRow,
   Typography,
+  Link,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
@@ -87,7 +88,12 @@ export const ChainTable = ({
                       backgroundColor: chain.currentClient === chain.latestClient ? successColor : errorColor,
                     }}
                   >
-                    {chain.latestClient}
+                    {chain.latestClient}{' '}
+                    {chain.clientReleaseUrl && (
+                      <Link target="_blank" href={chain.clientReleaseUrl}>
+                        (release)
+                      </Link>
+                    )}
                   </TableCell>
 
                   {/* currentRuntime vs latestRuntime */}
@@ -105,7 +111,12 @@ export const ChainTable = ({
                         parseInt(chain.currentRuntime) < parseInt(chain.latestRuntime) ? errorColor : successColor,
                     }}
                   >
-                    {chain.latestRuntime}
+                    {chain.latestRuntime}{' '}
+                    {chain.runtimeReleaseUrl && (
+                      <Link target="_blank" href={chain.runtimeReleaseUrl}>
+                        (release)
+                      </Link>
+                    )}
                   </TableCell>
                   <TableCell>{chain.lastBlock}</TableCell>
                 </TableRow>
