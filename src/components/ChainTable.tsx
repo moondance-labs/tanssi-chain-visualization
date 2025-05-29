@@ -1,5 +1,4 @@
 import type { ChainParamsType } from '../types/chain-params.type.ts';
-import LaunchIcon from '@mui/icons-material/Launch';
 import {
   alpha,
   Box,
@@ -88,7 +87,7 @@ export const ChainTable = ({
                         )
                       }
                     >
-                      <LaunchIcon></LaunchIcon>
+                      <img src="./icon_polkadot.ico" alt="polkadot explorer icon" style={{ width: 15, height: 15 }} />
                     </IconButton>
                   </TableCell>
                   <TableCell
