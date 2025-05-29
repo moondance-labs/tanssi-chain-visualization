@@ -1,4 +1,5 @@
 export type ChainParamsType = {
+  url: string;
   network: string;
   currentClient: string;
   latestClient: string;

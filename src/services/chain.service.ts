@@ -95,5 +95,6 @@ export const fetchChainData = async (url: string): Promise<ChainParamsType> => {
     lastBlock: timeAgo(Number(decodeScaleU64(lastBlock))),
     clientReleaseUrl: latestReleases.clientReleaseUrl,
     runtimeReleaseUrl: latestReleases.runtimeReleaseUrl,
+    url,
   };
 };

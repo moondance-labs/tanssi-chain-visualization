@@ -10,8 +10,10 @@ import {
   TableRow,
   Typography,
   Link,
+  IconButton,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import { POLKADOT_EXPLORER_BASE_URL } from '../constants/url.ts';
 
 export const ChainTable = ({
   title,
@@ -32,7 +34,7 @@ export const ChainTable = ({
     <Box pt="20px">
       <Typography variant="h5">{title}</Typography>
       <Box sx={{ overflowX: 'auto' }}>
-        <Table>
+        <Table size="small">
           <TableHead>
             <TableRow
               sx={{
@@ -75,7 +77,19 @@ export const ChainTable = ({
                     },
                   }}
                 >
-                  <TableCell>{chain.network}</TableCell>
+                  <TableCell>
+                    {chain.network}{' '}
+                    <IconButton
+                      onClick={() =>
+                        window.open(
+                          `${POLKADOT_EXPLORER_BASE_URL}/apps/?rpc=${chain.url.replace('https', 'wss')}`,
+                          '_blank',
+                        )
+                      }
+                    >
+                      <img src="./icon_polkadot.ico" alt="polkadot explorer icon" style={{ width: 15, height: 15 }} />
+                    </IconButton>
+                  </TableCell>
                   <TableCell
                     sx={{
                       backgroundColor: chain.currentClient === chain.latestClient ? successColor : errorColor,
