@@ -83,7 +83,7 @@ export const ChainTable = ({
                     <IconButton
                       onClick={() =>
                         window.open(
-                          `${POLKADOT_EXPLORER_BASE_URL}apps/?rpc=${chain.url.replace('https', 'wss')}`,
+                          `${POLKADOT_EXPLORER_BASE_URL}/apps/?rpc=${chain.url.replace('https', 'wss')}`,
                           '_blank',
                         )
                       }
