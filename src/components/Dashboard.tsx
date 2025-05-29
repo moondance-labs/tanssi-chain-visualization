@@ -9,7 +9,12 @@ const parachainUrls = [
   'https://dancebox.tanssi-api.network',
 ];
 
-const relaychainUrls = ['https://stagelight.tanssi-dev.network', 'https://dancelight.tanssi-api.network'];
+const relaychainUrls = [
+  'https://stagelight.tanssi-dev.network',
+  'https://dancelight.tanssi-api.network',
+  'https://moonlight.tanssi-dev.network',
+  'https://tanssi.tanssi-api.network',
+];
 
 export const Dashboard = () => {
   const {
