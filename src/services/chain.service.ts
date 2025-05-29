@@ -63,7 +63,7 @@ export const fetchChainData = async (url: string): Promise<ChainParamsType> => {
         runtimeRelease = arr.find((item: ReleaseItemType) => item.tag_name.endsWith('-para')) || defaultRelease;
       }
 
-      if (systemChain.includes('light')) {
+      if (systemChain.includes('light') || systemChain.includes('Tanssi')) {
         clientRelease = arr.find((item: ReleaseItemType) => item.name.includes('Tanssi-relay')) || defaultRelease;
         runtimeRelease = arr.find((item: ReleaseItemType) => item.tag_name.endsWith('-starlight')) || defaultRelease;
       }
