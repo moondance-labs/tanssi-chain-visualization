@@ -36,7 +36,11 @@ export const CollapsibleRow = ({ contractParams, isOpen }: { contractParams: Con
                       <Link href={`https://etherscan.io/address/${contract.address}`} target="_blank">
                         {contract.name}
                       </Link>
-                      <Link href={`https://etherscan.io/address/${contract.oracle}`} target="_blank">
+                      <Link
+                        href={`https://etherscan.io/address/${contract.oracle}`}
+                        target="_blank"
+                        sx={{ pl: '10px' }}
+                      >
                         Oracle
                       </Link>
                     </Box>
