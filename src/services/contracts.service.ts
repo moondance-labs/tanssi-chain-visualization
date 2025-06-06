@@ -37,7 +37,5 @@ const parseContracts = (data: any): ContractParamsType => {
     }
   }
 
-  console.log(result);
-
   return result;
 };

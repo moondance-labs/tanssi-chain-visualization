@@ -52,28 +52,28 @@ export const CollapsibleRow = ({ contractParams, isOpen }: { contractParams: Con
                 </Typography>
                 <Box>
                   {contractParams.vaults.map((contract, index) => (
-                    <Box>
-                      <Box key={index}>
+                    <Box key={index}>
+                      <Box>
                         <Link href={`https://etherscan.io/address/${contract.vault}`} target="_blank">
                           {contract.name}
                         </Link>
                       </Box>
-                      <Box key={index}>
+                      <Box>
                         <Link href={`https://etherscan.io/address/${contract.delegator}`} target="_blank">
                           Delegator
                         </Link>
                       </Box>
-                      <Box key={index}>
+                      <Box>
                         <Link href={`https://etherscan.io/address/${contract.slasher}`} target="_blank">
                           Slasher
                         </Link>
                       </Box>
-                      <Box key={index}>
+                      <Box>
                         <Link href={`https://etherscan.io/address/${contract.stakerRewards}`} target="_blank">
                           Staker Rewards
                         </Link>
                       </Box>
-                      <Box key={index}>
+                      <Box>
                         <Link
                           href={`https://etherscan.io/address/${contract.stakerRewardsImplementation}`}
                           target="_blank"
