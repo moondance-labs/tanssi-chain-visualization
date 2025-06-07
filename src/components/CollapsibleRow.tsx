@@ -3,9 +3,11 @@ import type { ContractParamsType } from '../types/contract-params.type.ts';
 import { ETHERSCAN_BASE_URL } from '../constants/url.ts';
 import { StyledChip } from './StyledChip.tsx';
 import { Fragment } from 'react';
+import { useTheme } from '@mui/material/styles';
 
 export const CollapsibleRow = ({ contractParams, isOpen }: { contractParams: ContractParamsType; isOpen: boolean }) => {
   if (!isOpen) return null;
+  const theme = useTheme();
 
   const sectionBoxStyle = {
     flex: 1,
@@ -14,6 +16,8 @@ export const CollapsibleRow = ({ contractParams, isOpen }: { contractParams: Con
     maxHeight: 250,
     overflowY: 'auto',
   };
+
+  const paperBackgroundColor = theme.palette.mode === 'dark' ? theme.palette.grey[900] : theme.palette.background.paper;
 
   return (
     <TableRow>
@@ -61,7 +65,7 @@ export const CollapsibleRow = ({ contractParams, isOpen }: { contractParams: Con
                   <Box display="flex" flexWrap="wrap" gap={2}>
                     {contractParams.vaults.map((v, idx) => (
                       <Card key={idx} variant="outlined" sx={{ minWidth: '100%' }}>
-                        <CardContent>
+                        <CardContent sx={{ backgroundColor: paperBackgroundColor }}>
                           <Typography fontWeight="bold" variant="body1" gutterBottom>
                             {v.name}
                           </Typography>
