@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { createTheme, responsiveFontSizes } from '@mui/material';
+import { createTheme, responsiveFontSizes, type Theme } from '@mui/material';
 
 type Mode = 'light' | 'dark';
 
@@ -11,7 +11,7 @@ const getStoredMode = (): Mode => {
 
 export const useMode = (): {
   mode: Mode;
-  theme: any;
+  theme: Theme;
   toggleMode: (newMode: Mode) => void;
 } => {
   const [mode, setMode] = useState<Mode>(getStoredMode);

@@ -15,7 +15,7 @@ import {
 import { useTheme } from '@mui/material/styles';
 import { POLKADOT_EXPLORER_BASE_URL } from '../constants/url.ts';
 import { CollapsibleRow } from './CollapsibleRow.tsx';
-import React, { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 
 export const ChainTable = ({
@@ -82,7 +82,7 @@ export const ChainTable = ({
               </TableRow>
             ) : (
               data.map((chain, index) => (
-                <React.Fragment key={index}>
+                <Fragment key={index}>
                   <TableRow
                     onClick={expandRow.bind(null, index)}
                     key={chain.network}
@@ -159,7 +159,7 @@ export const ChainTable = ({
                   {chain.contracts && (
                     <CollapsibleRow contractParams={chain.contracts} isOpen={openedIndex === index} />
                   )}
-                </React.Fragment>
+                </Fragment>
               ))
             )}
           </TableBody>

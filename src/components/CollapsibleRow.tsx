@@ -2,6 +2,7 @@ import { Box, Collapse, Divider, TableCell, TableRow, Typography, Paper, Card, C
 import type { ContractParamsType } from '../types/contract-params.type.ts';
 import { ETHERSCAN_BASE_URL } from '../constants/url.ts';
 import { StyledChip } from './StyledChip.tsx';
+import { Fragment } from 'react';
 
 export const CollapsibleRow = ({ contractParams, isOpen }: { contractParams: ContractParamsType; isOpen: boolean }) => {
   if (!isOpen) return null;
@@ -41,11 +42,11 @@ export const CollapsibleRow = ({ contractParams, isOpen }: { contractParams: Con
                   </Typography>
                   <Divider sx={{ mb: 1 }} />
                   <Box display="flex" flexWrap="wrap" gap={1}>
-                    {contractParams.collaterals.map((c) => (
-                      <>
+                    {contractParams.collaterals.map((c, index) => (
+                      <Fragment key={index}>
                         <StyledChip label={c.name} href={`${ETHERSCAN_BASE_URL}/address/${c.address}`} />
                         <StyledChip label={`Oracle`} href={`${ETHERSCAN_BASE_URL}/address/${c.oracle}`} />
-                      </>
+                      </Fragment>
                     ))}
                   </Box>
                 </Box>
