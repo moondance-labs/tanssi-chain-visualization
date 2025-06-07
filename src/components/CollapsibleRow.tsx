@@ -1,96 +1,90 @@
-import { Box, Collapse, Link, TableCell, TableRow, Typography } from '@mui/material';
+import { Box, Collapse, Divider, TableCell, TableRow, Typography, Paper, Card, CardContent } from '@mui/material';
 import type { ContractParamsType } from '../types/contract-params.type.ts';
+import { ETHERSCAN_BASE_URL } from '../constants/url.ts';
+import { StyledChip } from './StyledChip.tsx';
 
 export const CollapsibleRow = ({ contractParams, isOpen }: { contractParams: ContractParamsType; isOpen: boolean }) => {
-  if (!isOpen) {
-    return null;
-  }
+  if (!isOpen) return null;
+
+  const sectionBoxStyle = {
+    flex: 1,
+    p: 2,
+    minWidth: 200,
+    maxHeight: 250,
+    overflowY: 'auto',
+  };
 
   return (
     <TableRow>
-      <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+      <TableCell colSpan={7} sx={{ p: 0 }}>
         <Collapse in={isOpen} timeout="auto" unmountOnExit>
-          <Box display="flex" flexDirection="row" justifyContent="space-between">
-            <Box sx={{ margin: 1, maxHeight: '200px', overflowY: 'auto' }}>
-              <Typography variant="subtitle2" gutterBottom>
-                Contracts:
-              </Typography>
-              <Box>
-                {contractParams.contracts.map((contract, index) => (
-                  <Box key={index}>
-                    <Link href={`https://etherscan.io/address/${contract.address}`} target="_blank">
-                      {contract.name}
-                    </Link>
+          <Paper elevation={2} sx={{ m: 2, p: 2 }}>
+            <Box display="flex" gap={2} flexWrap="wrap">
+              <Box sx={sectionBoxStyle}>
+                <Typography variant="subtitle1" gutterBottom>
+                  Contracts
+                </Typography>
+                <Divider sx={{ mb: 1 }} />
+                {contractParams.contracts.length > 0 && (
+                  <Box display="flex" flexWrap="wrap" gap={1}>
+                    {contractParams.contracts.map((c, idx) => (
+                      <StyledChip key={idx} label={c.name} href={`${ETHERSCAN_BASE_URL}/address/${c.address}`} />
+                    ))}
                   </Box>
-                )) || <Typography color="textSecondary">No data</Typography>}
+                )}
               </Box>
-            </Box>
-            {contractParams.collaterals.length > 0 && (
-              <Box sx={{ margin: 1, maxHeight: '200px', overflowY: 'auto' }}>
-                <Typography variant="subtitle2" gutterBottom>
-                  Collaterals:
-                </Typography>
-                <Box>
-                  {contractParams.collaterals.map((contract, index) => (
-                    <Box key={index}>
-                      <Link href={`https://etherscan.io/address/${contract.address}`} target="_blank">
-                        {contract.name}
-                      </Link>
-                      <Link
-                        href={`https://etherscan.io/address/${contract.oracle}`}
-                        target="_blank"
-                        sx={{ pl: '10px' }}
-                      >
-                        Oracle
-                      </Link>
-                    </Box>
-                  ))}
-                </Box>
-              </Box>
-            )}
 
-            {contractParams.vaults.length > 0 && (
-              <Box sx={{ margin: 1, maxHeight: '200px', overflowY: 'auto' }}>
-                <Typography variant="subtitle2" gutterBottom>
-                  Vaults:
-                </Typography>
-                <Box>
-                  {contractParams.vaults.map((contract, index) => (
-                    <Box key={index}>
-                      <Box>
-                        <Link href={`https://etherscan.io/address/${contract.vault}`} target="_blank">
-                          {contract.name}
-                        </Link>
-                      </Box>
-                      <Box>
-                        <Link href={`https://etherscan.io/address/${contract.delegator}`} target="_blank">
-                          Delegator
-                        </Link>
-                      </Box>
-                      <Box>
-                        <Link href={`https://etherscan.io/address/${contract.slasher}`} target="_blank">
-                          Slasher
-                        </Link>
-                      </Box>
-                      <Box>
-                        <Link href={`https://etherscan.io/address/${contract.stakerRewards}`} target="_blank">
-                          Staker Rewards
-                        </Link>
-                      </Box>
-                      <Box>
-                        <Link
-                          href={`https://etherscan.io/address/${contract.stakerRewardsImplementation}`}
-                          target="_blank"
-                        >
-                          Staker Rewards Implementation
-                        </Link>
-                      </Box>
-                    </Box>
-                  ))}
+              {contractParams.collaterals.length > 0 && (
+                <Box sx={sectionBoxStyle}>
+                  <Typography variant="subtitle1" gutterBottom>
+                    Collaterals
+                  </Typography>
+                  <Divider sx={{ mb: 1 }} />
+                  <Box display="flex" flexWrap="wrap" gap={1}>
+                    {contractParams.collaterals.map((c) => (
+                      <>
+                        <StyledChip label={c.name} href={`${ETHERSCAN_BASE_URL}/address/${c.address}`} />
+                        <StyledChip label={`Oracle`} href={`${ETHERSCAN_BASE_URL}/address/${c.oracle}`} />
+                      </>
+                    ))}
+                  </Box>
                 </Box>
-              </Box>
-            )}
-          </Box>
+              )}
+
+              {contractParams.vaults.length > 0 && (
+                <Box sx={sectionBoxStyle}>
+                  <Typography variant="subtitle1" gutterBottom>
+                    Vaults
+                  </Typography>
+                  <Divider sx={{ mb: 1 }} />
+                  <Box display="flex" flexWrap="wrap" gap={2}>
+                    {contractParams.vaults.map((v, idx) => (
+                      <Card key={idx} variant="outlined" sx={{ minWidth: '100%' }}>
+                        <CardContent>
+                          <Typography fontWeight="bold" variant="body1" gutterBottom>
+                            {v.name}
+                          </Typography>
+                          <Box display="flex" flexDirection="column" gap={1}>
+                            <StyledChip label="Vault" href={`${ETHERSCAN_BASE_URL}/address/${v.vault}`} />
+                            <StyledChip label="Delegator" href={`${ETHERSCAN_BASE_URL}/address/${v.delegator}`} />
+                            <StyledChip label="Slasher" href={`${ETHERSCAN_BASE_URL}/address/${v.slasher}`} />
+                            <StyledChip
+                              label="Staker Rewards"
+                              href={`${ETHERSCAN_BASE_URL}/address/${v.stakerRewards}`}
+                            />
+                            <StyledChip
+                              label="Rewards Impl"
+                              href={`${ETHERSCAN_BASE_URL}/address/${v.stakerRewardsImplementation}`}
+                            />
+                          </Box>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </Box>
+                </Box>
+              )}
+            </Box>
+          </Paper>
         </Collapse>
       </TableCell>
     </TableRow>

@@ -148,10 +148,12 @@ export const ChainTable = ({
                       )}
                     </TableCell>
                     <TableCell>{chain.lastBlock}</TableCell>
-                    <TableCell>
-                      <IconButton size="small" onClick={expandRow.bind(null, index)}>
-                        {openedIndex === index ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
-                      </IconButton>
+                    <TableCell width="100px" align="center">
+                      {chain.contracts && (
+                        <IconButton size="small" onClick={expandRow.bind(null, index)}>
+                          {openedIndex === index ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+                        </IconButton>
+                      )}
                     </TableCell>
                   </TableRow>
                   {chain.contracts && (
