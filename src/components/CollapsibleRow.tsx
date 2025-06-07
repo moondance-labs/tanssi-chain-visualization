@@ -37,7 +37,7 @@ export const CollapsibleRow = ({ contractParams, isOpen }: { contractParams: Con
               {contractParams.collaterals.length > 0 && (
                 <Box sx={sectionBoxStyle}>
                   <Typography variant="subtitle1" gutterBottom>
-                    Collaterals
+                    Collaterals ({contractParams.collaterals.length})
                   </Typography>
                   <Divider sx={{ mb: 1 }} />
                   <Box display="flex" flexWrap="wrap" gap={1}>
@@ -54,7 +54,7 @@ export const CollapsibleRow = ({ contractParams, isOpen }: { contractParams: Con
               {contractParams.vaults.length > 0 && (
                 <Box sx={sectionBoxStyle}>
                   <Typography variant="subtitle1" gutterBottom>
-                    Vaults
+                    Vaults ({contractParams.vaults.length})
                   </Typography>
                   <Divider sx={{ mb: 1 }} />
                   <Box display="flex" flexWrap="wrap" gap={2}>
