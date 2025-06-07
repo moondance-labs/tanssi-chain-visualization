@@ -1,32 +1,15 @@
+import { Container, CssBaseline, ThemeProvider } from '@mui/material';
 import { Dashboard } from './components/Dashboard.tsx';
-import { Container, createTheme, CssBaseline, responsiveFontSizes, ThemeProvider } from '@mui/material';
-import { useState } from 'react';
 import { ThemeSwitcher } from './components/ThemeSwitcher.tsx';
+import { useMode } from './hooks/use-mode.tsx';
 
 function App() {
-  const defaultTheme = () =>
-    responsiveFontSizes(
-      createTheme({
-        palette: {
-          mode: 'light',
-        },
-      }),
-    );
-  const [theme, setTheme] = useState(defaultTheme());
-  const onSwitcherToggle = (mode: 'light' | 'dark') => {
-    const theme = () =>
-      createTheme({
-        palette: {
-          mode,
-        },
-      });
-    setTheme(theme);
-  };
+  const { mode, theme, toggleMode } = useMode();
 
   return (
     <Container maxWidth="xl" disableGutters style={{ margin: '10px' }}>
       <ThemeProvider theme={theme}>
-        <ThemeSwitcher onToggle={onSwitcherToggle} />
+        <ThemeSwitcher onToggle={toggleMode} currentMode={mode} />
         <CssBaseline />
         <Dashboard />
       </ThemeProvider>

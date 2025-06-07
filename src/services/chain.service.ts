@@ -1,5 +1,6 @@
 import type { ChainParamsType } from '../types/chain-params.type.ts';
 import { decodeScaleU64, safePost, timeAgo } from '../utils/utils.ts';
+import { GITHUB_API_URL } from '../constants/url.ts';
 
 if (!import.meta.env.VITE_GH_PARTS_JSON) {
   throw new Error('VITE_GH_PARTS_JSON is not defined');
@@ -50,7 +51,7 @@ export const fetchChainData = async (url: string): Promise<ChainParamsType> => {
     latestRuntime: string;
     clientReleaseUrl: string;
     runtimeReleaseUrl: string;
-  } = await fetch('https://api.github.com/repos/moondance-labs/tanssi/releases', {
+  } = await fetch(`${GITHUB_API_URL}/repos/moondance-labs/tanssi/releases`, {
     headers: getHeaders('github'),
   })
     .then((r) => (r.ok ? r.json() : []))
