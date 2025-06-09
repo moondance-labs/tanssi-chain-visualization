@@ -2,6 +2,12 @@ import { useChains } from '../hooks/use-chains.tsx';
 import { ChainTable } from './ChainTable.tsx';
 import { Box, IconButton, Typography } from '@mui/material';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
+import { keyframes } from '@mui/system';
+
+const spin = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(900deg); }
+`;
 
 const parachainUrls = [
   'https://stagebox.tanssi-dev.network',
@@ -43,7 +49,11 @@ export const Dashboard = () => {
               fetchRelaychains();
             }}
           >
-            <AutorenewIcon />
+            <AutorenewIcon
+              sx={{
+                animation: isParachainsLoading || isRelaychainsLoading ? `${spin} 1s linear infinite` : 'none',
+              }}
+            />
           </IconButton>
         </Box>
       </Box>

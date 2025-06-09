@@ -1,3 +1,5 @@
+import type { ContractParamsType } from './contract-params.type.ts';
+
 export type ChainParamsType = {
   url: string;
   network: string;
@@ -8,4 +10,5 @@ export type ChainParamsType = {
   lastBlock: string;
   clientReleaseUrl: string;
   runtimeReleaseUrl: string;
+  contracts?: ContractParamsType;
 };
