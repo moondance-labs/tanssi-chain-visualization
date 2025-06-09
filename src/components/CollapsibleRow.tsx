@@ -2,7 +2,6 @@ import { Box, Collapse, Divider, TableCell, TableRow, Typography, Paper, Card, C
 import type { ContractParamsType } from '../types/contract-params.type.ts';
 import { ETHERSCAN_BASE_URL } from '../constants/url.ts';
 import { StyledChip } from './StyledChip.tsx';
-import { Fragment } from 'react';
 import { useTheme } from '@mui/material/styles';
 
 export const CollapsibleRow = ({ contractParams, isOpen }: { contractParams: ContractParamsType; isOpen: boolean }) => {
@@ -45,12 +44,12 @@ export const CollapsibleRow = ({ contractParams, isOpen }: { contractParams: Con
                     Collaterals ({contractParams.collaterals.length})
                   </Typography>
                   <Divider sx={{ mb: 1 }} />
-                  <Box display="flex" flexWrap="wrap" gap={1}>
+                  <Box display="block">
                     {contractParams.collaterals.map((c, index) => (
-                      <Fragment key={index}>
-                        <StyledChip label={c.name} href={`${ETHERSCAN_BASE_URL}/address/${c.address}`} />
+                      <Box key={index} sx={{ pb: '10px' }}>
+                        <StyledChip label={c.name} href={`${ETHERSCAN_BASE_URL}/address/${c.address}`} />{' '}
                         <StyledChip label={`Oracle`} href={`${ETHERSCAN_BASE_URL}/address/${c.oracle}`} />
-                      </Fragment>
+                      </Box>
                     ))}
                   </Box>
                 </Box>
