@@ -19,7 +19,7 @@ const relaychainUrls = [
   'https://stagelight.tanssi-dev.network',
   'https://dancelight.tanssi-api.network',
   'https://moonlight.tanssi-dev.network',
-  'https://tanssi.tanssi-api.network',
+  'https://tanssi.tanssi-mainnet.network',
 ];
 
 export const Dashboard = () => {
