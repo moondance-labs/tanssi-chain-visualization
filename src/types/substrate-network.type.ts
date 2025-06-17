@@ -6,7 +6,6 @@ export const SubstrateNetwork = {
   Dancelight: 'Dancelight (dancelight)',
   Moonlight: 'Moonlight (starlight)',
   Tanssi: 'Tanssi (starlight)',
-  Unknown: 'Unknown (unknown)',
 } as const;
 
 export type SubstrateNetworkType = (typeof SubstrateNetwork)[keyof typeof SubstrateNetwork];

@@ -100,10 +100,13 @@ export const fetchChainData = async (url: string): Promise<ChainParamsType> => {
     }),
   ).then((res) => res?.result);
 
-  let substrateNetwork: SubstrateNetworkType = SubstrateNetwork.Unknown; // fallback if we don't detect the substrate network
+  let substrateNetwork: SubstrateNetworkType;
   const network = `${systemChain} (${specName})`;
   if (isSubstrateNetworkGuard(network)) {
     substrateNetwork = network;
+  } else {
+    console.warn(`Unknown Substrate network detected: ${network}, fallback to ${SubstrateNetwork.Dancebox}`);
+    substrateNetwork = SubstrateNetwork.Dancebox;
   }
 
   return {
