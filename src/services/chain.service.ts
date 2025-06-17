@@ -59,19 +59,29 @@ export const fetchChainData = async (url: string): Promise<ChainParamsType> => {
       let clientRelease: ReleaseItemType = defaultRelease;
       let runtimeRelease: ReleaseItemType = defaultRelease;
 
+      let latestClient = '';
+      let latestRuntime = '';
+
       if (systemChain.includes('box')) {
-        clientRelease = arr.find((item: ReleaseItemType) => item.name.includes('Tanssi-para')) || defaultRelease;
-        runtimeRelease = arr.find((item: ReleaseItemType) => item.tag_name.endsWith('-para')) || defaultRelease;
+        clientRelease = arr.find((item: ReleaseItemType) => /^v.*-para$/.test(item.tag_name)) || defaultRelease;
+        runtimeRelease = arr.find((item: ReleaseItemType) => /^runtime.*-para$/.test(item.tag_name)) || defaultRelease;
+
+        latestClient = clientRelease?.tag_name?.slice(1).split('-')[0];
+        latestRuntime = runtimeRelease?.tag_name?.replace(/runtime-|-para/g, '');
       }
 
       if (systemChain.includes('light') || systemChain.includes('Tanssi')) {
-        clientRelease = arr.find((item: ReleaseItemType) => item.name.includes('Tanssi-relay')) || defaultRelease;
-        runtimeRelease = arr.find((item: ReleaseItemType) => item.tag_name.endsWith('-starlight')) || defaultRelease;
+        clientRelease = arr.find((item: ReleaseItemType) => /^v(?!.*-para$).*$/.test(item.tag_name)) || defaultRelease;
+        runtimeRelease =
+          arr.find((item: ReleaseItemType) => /^runtime-.*-starlight$/.test(item.tag_name)) || defaultRelease;
+
+        latestClient = clientRelease?.tag_name?.slice(1).split('-')[0];
+        latestRuntime = runtimeRelease?.tag_name?.replace(/runtime-|-starlight/g, '');
       }
 
       return {
-        latestClient: clientRelease?.tag_name?.slice(1).split('-')[0],
-        latestRuntime: runtimeRelease?.tag_name?.replace(/runtime-|-para|-starlight/g, ''),
+        latestClient,
+        latestRuntime,
         clientReleaseUrl: clientRelease.html_url,
         runtimeReleaseUrl: runtimeRelease.html_url,
       };
