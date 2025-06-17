@@ -1,10 +1,20 @@
 import { Box, Collapse, Divider, TableCell, TableRow, Typography, Paper, Card, CardContent } from '@mui/material';
 import type { ContractParamsType } from '../types/contract-params.type.ts';
-import { ETHERSCAN_BASE_URL } from '../constants/url.ts';
 import { StyledChip } from './StyledChip.tsx';
 import { useTheme } from '@mui/material/styles';
+import type { EthereumNetworkType } from '../types/ethereum-network.type.ts';
+import { ethNetworkToExplorerUrlMapper } from '../mappers/substrate-chain-name.mapper.ts';
 
-export const CollapsibleRow = ({ contractParams, isOpen }: { contractParams: ContractParamsType; isOpen: boolean }) => {
+export const CollapsibleRow = ({
+  contractParams,
+  isOpen,
+  ethNetwork,
+}: {
+  contractParams: ContractParamsType;
+  isOpen: boolean;
+  ethNetwork: EthereumNetworkType;
+}) => {
+  const ethNetworkExplorerUrl = ethNetworkToExplorerUrlMapper(ethNetwork);
   if (!isOpen) return null;
   const theme = useTheme();
 
@@ -32,7 +42,7 @@ export const CollapsibleRow = ({ contractParams, isOpen }: { contractParams: Con
                 {contractParams.contracts.length > 0 && (
                   <Box display="flex" flexWrap="wrap" gap={1}>
                     {contractParams.contracts.map((c, idx) => (
-                      <StyledChip key={idx} label={c.name} href={`${ETHERSCAN_BASE_URL}/address/${c.address}`} />
+                      <StyledChip key={idx} label={c.name} href={`${ethNetworkExplorerUrl}/address/${c.address}`} />
                     ))}
                   </Box>
                 )}
@@ -47,8 +57,8 @@ export const CollapsibleRow = ({ contractParams, isOpen }: { contractParams: Con
                   <Box display="block">
                     {contractParams.collaterals.map((c, index) => (
                       <Box key={index} sx={{ pb: '10px' }}>
-                        <StyledChip label={c.name} href={`${ETHERSCAN_BASE_URL}/address/${c.address}`} />{' '}
-                        <StyledChip label={`Oracle`} href={`${ETHERSCAN_BASE_URL}/address/${c.oracle}`} />
+                        <StyledChip label={c.name} href={`${ethNetworkExplorerUrl}/address/${c.address}`} />{' '}
+                        <StyledChip label={`Oracle`} href={`${ethNetworkExplorerUrl}/address/${c.oracle}`} />
                       </Box>
                     ))}
                   </Box>
@@ -69,16 +79,16 @@ export const CollapsibleRow = ({ contractParams, isOpen }: { contractParams: Con
                             {v.name}
                           </Typography>
                           <Box display="flex" flexDirection="column" gap={1}>
-                            <StyledChip label="Vault" href={`${ETHERSCAN_BASE_URL}/address/${v.vault}`} />
-                            <StyledChip label="Delegator" href={`${ETHERSCAN_BASE_URL}/address/${v.delegator}`} />
-                            <StyledChip label="Slasher" href={`${ETHERSCAN_BASE_URL}/address/${v.slasher}`} />
+                            <StyledChip label="Vault" href={`${ethNetworkExplorerUrl}/address/${v.vault}`} />
+                            <StyledChip label="Delegator" href={`${ethNetworkExplorerUrl}/address/${v.delegator}`} />
+                            <StyledChip label="Slasher" href={`${ethNetworkExplorerUrl}/address/${v.slasher}`} />
                             <StyledChip
                               label="Staker Rewards"
-                              href={`${ETHERSCAN_BASE_URL}/address/${v.stakerRewards}`}
+                              href={`${ethNetworkExplorerUrl}/address/${v.stakerRewards}`}
                             />
                             <StyledChip
                               label="Rewards Impl"
-                              href={`${ETHERSCAN_BASE_URL}/address/${v.stakerRewardsImplementation}`}
+                              href={`${ethNetworkExplorerUrl}/address/${v.stakerRewardsImplementation}`}
                             />
                           </Box>
                         </CardContent>

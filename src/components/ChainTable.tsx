@@ -85,7 +85,7 @@ export const ChainTable = ({
                 <Fragment key={index}>
                   <TableRow
                     onClick={expandRow.bind(null, index)}
-                    key={chain.network}
+                    key={chain.substrateNetwork}
                     sx={{
                       '&:hover': {
                         backgroundColor: theme.palette.action.hover,
@@ -94,7 +94,7 @@ export const ChainTable = ({
                     }}
                   >
                     <TableCell>
-                      {chain.network}{' '}
+                      {chain.substrateNetwork}{' '}
                       <IconButton
                         onClick={() =>
                           window.open(
@@ -157,7 +157,11 @@ export const ChainTable = ({
                     </TableCell>
                   </TableRow>
                   {chain.contracts && (
-                    <CollapsibleRow contractParams={chain.contracts} isOpen={openedIndex === index} />
+                    <CollapsibleRow
+                      contractParams={chain.contracts}
+                      ethNetwork={chain.ethereumNetwork}
+                      isOpen={openedIndex === index}
+                    />
                   )}
                 </Fragment>
               ))
