@@ -1,8 +1,11 @@
 import type { ContractParamsType } from './contract-params.type.ts';
+import type { EthereumNetworkType } from './ethereum-network.type.ts';
+import type { SubstrateNetworkType } from './substrate-network.type.ts';
 
 export type ChainParamsType = {
   url: string;
-  network: string;
+  substrateNetwork: SubstrateNetworkType;
+  ethereumNetwork: EthereumNetworkType;
   currentClient: string;
   latestClient: string;
   currentRuntime: string;

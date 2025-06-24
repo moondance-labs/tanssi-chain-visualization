@@ -17,6 +17,7 @@ import { POLKADOT_EXPLORER_BASE_URL } from '../constants/url.ts';
 import { CollapsibleRow } from './CollapsibleRow.tsx';
 import { Fragment, useState } from 'react';
 import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
+import { substrateNetworkToSubscanUrl } from '../mappers/substrate-chain-name.mapper.ts';
 
 export const ChainTable = ({
   title,
@@ -81,86 +82,115 @@ export const ChainTable = ({
                 </TableCell>
               </TableRow>
             ) : (
-              data.map((chain, index) => (
-                <Fragment key={index}>
-                  <TableRow
-                    onClick={expandRow.bind(null, index)}
-                    key={chain.network}
-                    sx={{
-                      '&:hover': {
-                        backgroundColor: theme.palette.action.hover,
-                        cursor: 'pointer',
-                      },
-                    }}
-                  >
-                    <TableCell>
-                      {chain.network}{' '}
-                      <IconButton
-                        onClick={() =>
-                          window.open(
-                            `${POLKADOT_EXPLORER_BASE_URL}/apps/?rpc=${chain.url.replace('https', 'wss')}`,
-                            '_blank',
-                          )
-                        }
-                      >
-                        <img src="./icon_polkadot.ico" alt="polkadot explorer icon" style={{ width: 15, height: 15 }} />
-                      </IconButton>
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        backgroundColor: chain.currentClient === chain.latestClient ? successColor : errorColor,
-                      }}
-                    >
-                      {chain.currentClient}
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        backgroundColor: chain.currentClient === chain.latestClient ? successColor : errorColor,
-                      }}
-                    >
-                      {chain.latestClient}{' '}
-                      {chain.clientReleaseUrl && (
-                        <Link target="_blank" href={chain.clientReleaseUrl}>
-                          (release)
-                        </Link>
-                      )}
-                    </TableCell>
+              data.map((chain, index) => {
+                const subscanUrl = substrateNetworkToSubscanUrl(chain.substrateNetwork);
 
-                    <TableCell
+                return (
+                  <Fragment key={index}>
+                    <TableRow
+                      onClick={expandRow.bind(null, index)}
+                      key={chain.substrateNetwork}
                       sx={{
-                        backgroundColor:
-                          parseInt(chain.currentRuntime) < parseInt(chain.latestRuntime) ? errorColor : successColor,
+                        '&:hover': {
+                          backgroundColor: theme.palette.action.hover,
+                          cursor: 'pointer',
+                        },
                       }}
                     >
-                      {chain.currentRuntime}
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        backgroundColor:
-                          parseInt(chain.currentRuntime) < parseInt(chain.latestRuntime) ? errorColor : successColor,
-                      }}
-                    >
-                      {chain.latestRuntime}{' '}
-                      {chain.runtimeReleaseUrl && (
-                        <Link target="_blank" href={chain.runtimeReleaseUrl}>
-                          (release)
-                        </Link>
-                      )}
-                    </TableCell>
-                    <TableCell>{chain.lastBlock}</TableCell>
-                    <TableCell width="100px" align="center">
-                      {chain.contracts && (
-                        <IconButton size="small" onClick={expandRow.bind(null, index)}>
-                          {openedIndex === index ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+                      <TableCell>
+                        {chain.substrateNetwork}{' '}
+                        <IconButton
+                          onClick={(e: React.MouseEvent<HTMLElement>) => {
+                            e.stopPropagation();
+
+                            window.open(
+                              `${POLKADOT_EXPLORER_BASE_URL}/apps/?rpc=${chain.url.replace('https', 'wss')}`,
+                              '_blank',
+                            );
+                          }}
+                        >
+                          <img
+                            src="./icon_polkadot.ico"
+                            alt="polkadot explorer icon"
+                            style={{ width: 15, height: 15 }}
+                          />
                         </IconButton>
-                      )}
-                    </TableCell>
-                  </TableRow>
-                  {chain.contracts && (
-                    <CollapsibleRow contractParams={chain.contracts} isOpen={openedIndex === index} />
-                  )}
-                </Fragment>
-              ))
+                        {subscanUrl && (
+                          <IconButton
+                            onClick={(e: React.MouseEvent<HTMLElement>) => {
+                              e.stopPropagation();
+
+                              window.open(subscanUrl, '_blank');
+                            }}
+                          >
+                            <img
+                              src="./icon_subscan.png"
+                              alt="polkadot explorer icon"
+                              style={{ width: 15, height: 15 }}
+                            />
+                          </IconButton>
+                        )}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          backgroundColor: chain.currentClient === chain.latestClient ? successColor : errorColor,
+                        }}
+                      >
+                        {chain.currentClient}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          backgroundColor: chain.currentClient === chain.latestClient ? successColor : errorColor,
+                        }}
+                      >
+                        {chain.latestClient}{' '}
+                        {chain.clientReleaseUrl && (
+                          <Link target="_blank" href={chain.clientReleaseUrl} onClick={(e) => e.stopPropagation()}>
+                            (release)
+                          </Link>
+                        )}
+                      </TableCell>
+
+                      <TableCell
+                        sx={{
+                          backgroundColor:
+                            parseInt(chain.currentRuntime) < parseInt(chain.latestRuntime) ? errorColor : successColor,
+                        }}
+                      >
+                        {chain.currentRuntime}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          backgroundColor:
+                            parseInt(chain.currentRuntime) < parseInt(chain.latestRuntime) ? errorColor : successColor,
+                        }}
+                      >
+                        {chain.latestRuntime}{' '}
+                        {chain.runtimeReleaseUrl && (
+                          <Link target="_blank" href={chain.runtimeReleaseUrl} onClick={(e) => e.stopPropagation()}>
+                            (release)
+                          </Link>
+                        )}
+                      </TableCell>
+                      <TableCell>{chain.lastBlock}</TableCell>
+                      <TableCell width="100px" align="center">
+                        {chain.contracts && (
+                          <IconButton size="small" onClick={expandRow.bind(null, index)}>
+                            {openedIndex === index ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+                          </IconButton>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                    {chain.contracts && (
+                      <CollapsibleRow
+                        contractParams={chain.contracts}
+                        ethNetwork={chain.ethereumNetwork}
+                        isOpen={openedIndex === index}
+                      />
+                    )}
+                  </Fragment>
+                );
+              })
             )}
           </TableBody>
         </Table>

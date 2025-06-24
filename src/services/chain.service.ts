@@ -1,6 +1,9 @@
 import type { ChainParamsType } from '../types/chain-params.type.ts';
 import { decodeScaleU64, safePost, timeAgo } from '../utils/utils.ts';
 import { GITHUB_API_URL } from '../constants/url.ts';
+import { substrateNetworkToEthereumNetworkMapper } from '../mappers/substrate-chain-name.mapper.ts';
+import { SubstrateNetwork, type SubstrateNetworkType } from '../types/substrate-network.type.ts';
+import { isSubstrateNetworkGuard } from '../guards/is-substrate-network.guard.ts';
 
 if (!import.meta.env.VITE_GH_PARTS_JSON) {
   throw new Error('VITE_GH_PARTS_JSON is not defined');
@@ -97,8 +100,18 @@ export const fetchChainData = async (url: string): Promise<ChainParamsType> => {
     }),
   ).then((res) => res?.result);
 
+  let substrateNetwork: SubstrateNetworkType;
+  const network = `${systemChain} (${specName})`;
+  if (isSubstrateNetworkGuard(network)) {
+    substrateNetwork = network;
+  } else {
+    console.warn(`Unknown Substrate network detected: ${network}, fallback to ${SubstrateNetwork.Dancebox}`);
+    substrateNetwork = SubstrateNetwork.Dancebox;
+  }
+
   return {
-    network: `${systemChain} (${specName})`,
+    substrateNetwork,
+    ethereumNetwork: substrateNetworkToEthereumNetworkMapper(substrateNetwork),
     currentClient: systemVersion,
     latestClient: latestReleases.latestClient,
     currentRuntime: String(runtimeVersion.result.specVersion),

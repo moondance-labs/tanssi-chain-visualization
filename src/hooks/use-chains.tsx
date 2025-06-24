@@ -2,7 +2,7 @@ import type { ChainParamsType } from '../types/chain-params.type.ts';
 import { useEffect, useState } from 'react';
 import { fetchChainData } from '../services/chain.service.ts';
 import { fetchContractsData } from '../services/contracts.service.ts';
-import { chainUrlToContractFileMapper } from '../mappers/chain-name-to-contract-file.mapper.ts';
+import { substrateNetworkToContractFileMapper } from '../mappers/substrate-chain-name.mapper.ts';
 
 export const useChains = (
   urls: string[],
@@ -41,7 +41,7 @@ export const useChains = (
 const augmentWithContractData = (data: ChainParamsType[]): Promise<ChainParamsType[]> => {
   return Promise.all(
     data.map(async (chain) => {
-      const contractFile = chainUrlToContractFileMapper(chain.network);
+      const contractFile = substrateNetworkToContractFileMapper(chain.substrateNetwork);
       if (contractFile) {
         chain.contracts = await fetchContractsData(contractFile);
       }
