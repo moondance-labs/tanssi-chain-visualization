@@ -32,3 +32,13 @@ export const ethNetworkToExplorerUrlMapper = (network: EthereumNetworkType) => {
 
   return table[network] || ETHERSCAN_TESTNET_BASE_URL;
 };
+
+export const substrateNetworkToSubscanUrl = (network: SubstrateNetworkType): string => {
+  const table: Record<string, string> = {
+    [SubstrateNetwork.Tanssi]: 'https://tanssi.subscan.io',
+    [SubstrateNetwork.Dancelight]: 'https://dancelight.subscan.io',
+    [SubstrateNetwork.Dancebox]: 'https://dancebox.subscan.io',
+  };
+
+  return table[network] || '';
+};
