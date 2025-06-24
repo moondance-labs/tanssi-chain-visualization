@@ -124,7 +124,7 @@ export const ChainTable = ({
                             }}
                           >
                             <img
-                              src="./icon_subscan.jpg"
+                              src="./icon_subscan.png"
                               alt="polkadot explorer icon"
                               style={{ width: 15, height: 15 }}
                             />
