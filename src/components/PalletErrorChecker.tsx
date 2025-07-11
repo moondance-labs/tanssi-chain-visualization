@@ -75,7 +75,13 @@ export const PalletErrorChecker = () => {
         />
       </Box>
 
-      <Button variant="contained" sx={{ mt: 3 }} onClick={handleCheckError} disabled={loading} fullWidth>
+      <Button
+        variant="contained"
+        sx={{ mt: 3 }}
+        onClick={handleCheckError}
+        disabled={loading || !selectedNetwork || !moduleIndex || !errorIndex}
+        fullWidth
+      >
         {loading ? <CircularProgress size={24} /> : 'Find Error'}
       </Button>
 

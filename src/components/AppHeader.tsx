@@ -1,5 +1,6 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
+import Link from '@mui/material/Link';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -47,7 +48,9 @@ export const AppHeader = ({
     <AppBar position="fixed" color="primary">
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
-          <img src="./logo.png" alt="Logo" style={{ height: 40, objectFit: 'contain' }} />
+          <Link href="#/dashboard" underline="none" sx={{ display: 'flex', alignItems: 'center' }}>
+            <img src="./logo.png" alt="Logo" style={{ height: 40, objectFit: 'contain' }} />
+          </Link>
         </Box>
 
         {isMobile ? (
