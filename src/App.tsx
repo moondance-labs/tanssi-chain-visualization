@@ -24,7 +24,6 @@ function App() {
             <Route path="/" element={<Navigate to="/dashboard" />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/pallet-errors" element={<PalletErrorChecker />} />
-            <Route path="/chopsticks-tool" element={<ChopsticksTool />} />
           </Routes>
         </Container>
       </HashRouter>
