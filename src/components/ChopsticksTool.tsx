@@ -14,7 +14,7 @@ export const ChopsticksTool = () => {
 
     setIsReady(false);
     const encoded = encodeURIComponent(url);
-    const src = `https://xlc.github.io/chopsticks-web/#/?endpoint=${encoded}&blockHeight=latest`;
+    const src = `https://tmpolaczyk.github.io/chopsticks-web/#/?endpoint=${encoded}`;
 
     setIframeSrc(src);
     setIframeKey((k) => k + 1);
