@@ -27,5 +27,14 @@ export const useNetworkSelector = (onChange: (url: string) => void) => {
   });
   networks.push({ name: CUSTOM_NAME, url: '' });
 
-  return { networks, selectedNetwork, setSelectedNetwork, setCustomUrl, customUrl, onUrlChange, onCustomUrlChange };
+  return {
+    networks,
+    selectedNetwork,
+    setSelectedNetwork,
+    setCustomUrl,
+    customUrl,
+    onUrlChange,
+    onCustomUrlChange,
+    customName: CUSTOM_NAME,
+  };
 };

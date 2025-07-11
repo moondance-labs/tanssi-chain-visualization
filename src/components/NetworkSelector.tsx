@@ -2,7 +2,8 @@ import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/mater
 import { useNetworkSelector } from '../hooks/use-network-selector.tsx';
 
 export const NetworkSelector = ({ onChange }: { onChange: (url: string) => void }) => {
-  const { networks, selectedNetwork, customUrl, onUrlChange, onCustomUrlChange } = useNetworkSelector(onChange);
+  const { networks, selectedNetwork, customUrl, onUrlChange, onCustomUrlChange, customName } =
+    useNetworkSelector(onChange);
 
   return (
     <>
@@ -17,7 +18,7 @@ export const NetworkSelector = ({ onChange }: { onChange: (url: string) => void 
         </Select>
       </FormControl>
 
-      {selectedNetwork === 'Custom' && (
+      {selectedNetwork === customName && (
         <TextField
           fullWidth
           margin="normal"
