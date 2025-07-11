@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { createTheme, responsiveFontSizes, type Theme } from '@mui/material';
 
-type Mode = 'light' | 'dark';
+export type Mode = 'light' | 'dark';
 
 const getStoredMode = (): Mode => {
   const stored = localStorage.getItem('themeMode');
@@ -26,6 +26,10 @@ export const useMode = (): {
       createTheme({
         palette: {
           mode,
+          primary: {
+            main: mode === 'light' ? '#56B3B5' : '#90caf9',
+            contrastText: '#fff',
+          },
         },
       }),
     );

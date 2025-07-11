@@ -1,19 +1,33 @@
 import { Container, CssBaseline, ThemeProvider } from '@mui/material';
+import { Routes, Route, Navigate, HashRouter } from 'react-router-dom';
+
 import { Dashboard } from './components/Dashboard.tsx';
-import { ThemeSwitcher } from './components/ThemeSwitcher.tsx';
+import { AppHeader } from './components/AppHeader.tsx';
 import { useMode } from './hooks/use-mode.tsx';
+import { PalletErrorChecker } from './components/PalletErrorChecker.tsx'; // создаёшь такой компонент
 
 function App() {
-  const { mode, theme, toggleMode } = useMode();
+  const { theme, toggleMode, mode } = useMode();
 
   return (
-    <Container maxWidth="xl" disableGutters style={{ margin: '10px' }}>
-      <ThemeProvider theme={theme}>
-        <ThemeSwitcher onToggle={toggleMode} currentMode={mode} />
-        <CssBaseline />
-        <Dashboard />
-      </ThemeProvider>
-    </Container>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <HashRouter>
+        <AppHeader theme={theme} mode={mode} toggleMode={toggleMode} />
+        <Container
+          sx={{ p: 2 }}
+          maxWidth="xl"
+          disableGutters
+          style={{ paddingLeft: '10px', paddingRight: '10px', paddingTop: '70px' }}
+        >
+          <Routes>
+            <Route path="/" element={<Navigate to="/dashboard" />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/pallet-errors" element={<PalletErrorChecker />} />
+          </Routes>
+        </Container>
+      </HashRouter>
+    </ThemeProvider>
   );
 }
 
