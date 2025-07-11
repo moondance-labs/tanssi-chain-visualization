@@ -3,24 +3,16 @@ import { useState } from 'react';
 import { ApiPromise, WsProvider } from '@polkadot/api';
 import { BN } from '@polkadot/util';
 import { Buffer } from 'buffer';
-import { parachainUrls, relaychainUrls } from '../constants/url.ts';
 
 type MetaErrorResultType = { method: string; section: string; name: string; docs: string };
 
 export const useErrorChecker = () => {
-  const [selectedNetwork, setSelectedNetwork] = useState('');
-  const [customUrl, setCustomUrl] = useState('');
   const [moduleIndex, setModuleIndex] = useState('');
   const [errorIndex, setErrorIndex] = useState('');
   const [result, setResult] = useState<MetaErrorResultType | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
-  const networks = [...parachainUrls, ...relaychainUrls].map((url) => {
-    let urlReplaced = url.replace('https://', 'wss://');
-    return { name: urlReplaced, url: urlReplaced };
-  });
-  networks.push({ name: 'Custom', url: '' });
+  const [networkUrl, setNetworkUrl] = useState('');
 
   const handleCheckError = async () => {
     setLoading(true);
@@ -28,12 +20,9 @@ export const useErrorChecker = () => {
     setError('');
 
     try {
-      const network = networks.find((n) => n.name === selectedNetwork);
-      const endpoint = selectedNetwork === 'Custom' ? customUrl : network?.url;
+      if (!networkUrl) throw new Error('Invalid endpoint');
 
-      if (!endpoint) throw new Error('Invalid endpoint');
-
-      const provider = new WsProvider(endpoint);
+      const provider = new WsProvider(networkUrl);
       const api = await ApiPromise.create({ provider });
 
       const errorBytes = Uint8Array.from(Buffer.from(errorIndex.slice(2), 'hex'));
@@ -58,17 +47,14 @@ export const useErrorChecker = () => {
 
   return {
     handleCheckError,
-    selectedNetwork,
-    customUrl,
     moduleIndex,
     errorIndex,
     result,
     loading,
     error,
-    setSelectedNetwork,
-    setCustomUrl,
     setModuleIndex,
     setErrorIndex,
-    networks,
+    setNetworkUrl,
+    networkUrl,
   };
 };

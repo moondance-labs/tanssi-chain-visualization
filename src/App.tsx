@@ -4,7 +4,7 @@ import { Routes, Route, Navigate, HashRouter } from 'react-router-dom';
 import { Dashboard } from './components/Dashboard.tsx';
 import { AppHeader } from './components/AppHeader.tsx';
 import { useMode } from './hooks/use-mode.tsx';
-import { PalletErrorChecker } from './components/PalletErrorChecker.tsx'; // создаёшь такой компонент
+import { PalletErrorChecker } from './components/PalletErrorChecker.tsx';
 
 function App() {
   const { theme, toggleMode, mode } = useMode();
@@ -24,6 +24,7 @@ function App() {
             <Route path="/" element={<Navigate to="/dashboard" />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/pallet-errors" element={<PalletErrorChecker />} />
+            <Route path="/chopsticks-tool" element={<ChopsticksTool />} />
           </Routes>
         </Container>
       </HashRouter>

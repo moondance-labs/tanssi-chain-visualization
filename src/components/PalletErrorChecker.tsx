@@ -1,34 +1,19 @@
-import {
-  Box,
-  Typography,
-  TextField,
-  Button,
-  MenuItem,
-  Select,
-  InputLabel,
-  FormControl,
-  CircularProgress,
-  Paper,
-  Stack,
-  Alert,
-} from '@mui/material';
+import { Box, Typography, TextField, Button, CircularProgress, Paper, Stack, Alert } from '@mui/material';
 import { useErrorChecker } from '../hooks/use-error-checker.tsx';
+import { NetworkSelector } from './NetworkSelector.tsx';
 
 export const PalletErrorChecker = () => {
   const {
     handleCheckError,
-    selectedNetwork,
-    customUrl,
     moduleIndex,
     errorIndex,
     result,
     loading,
     error,
-    setSelectedNetwork,
-    setCustomUrl,
     setModuleIndex,
     setErrorIndex,
-    networks,
+    setNetworkUrl,
+    networkUrl,
   } = useErrorChecker();
 
   return (
@@ -37,26 +22,7 @@ export const PalletErrorChecker = () => {
         Pallet Error Checker
       </Typography>
 
-      <FormControl fullWidth margin="normal">
-        <InputLabel>Network</InputLabel>
-        <Select value={selectedNetwork} label="Network" onChange={(e) => setSelectedNetwork(e.target.value)}>
-          {networks.map((net) => (
-            <MenuItem key={net.name} value={net.name}>
-              {net.name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-
-      {selectedNetwork === 'Custom' && (
-        <TextField
-          fullWidth
-          margin="normal"
-          label="Custom WebSocket URL"
-          value={customUrl}
-          onChange={(e) => setCustomUrl(e.target.value)}
-        />
-      )}
+      <NetworkSelector onChange={(url: string) => setNetworkUrl(url)} />
 
       <Box display="flex" gap={2} mt={2}>
         <TextField
@@ -79,7 +45,7 @@ export const PalletErrorChecker = () => {
         variant="contained"
         sx={{ mt: 3 }}
         onClick={handleCheckError}
-        disabled={loading || !selectedNetwork || !moduleIndex || !errorIndex}
+        disabled={loading || !networkUrl || !moduleIndex || !errorIndex}
         fullWidth
       >
         {loading ? <CircularProgress size={24} /> : 'Find Error'}
