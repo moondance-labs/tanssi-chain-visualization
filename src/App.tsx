@@ -5,6 +5,7 @@ import { Dashboard } from './components/Dashboard.tsx';
 import { AppHeader } from './components/AppHeader.tsx';
 import { useMode } from './hooks/use-mode.tsx';
 import { PalletErrorChecker } from './components/PalletErrorChecker.tsx';
+import { ChopsticksTool } from './components/ChopsticksTool.tsx';
 
 function App() {
   const { theme, toggleMode, mode } = useMode();
@@ -24,6 +25,7 @@ function App() {
             <Route path="/" element={<Navigate to="/dashboard" />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/pallet-errors" element={<PalletErrorChecker />} />
+            <Route path="/chopsticks-tool" element={<ChopsticksTool />} />
           </Routes>
         </Container>
       </HashRouter>
