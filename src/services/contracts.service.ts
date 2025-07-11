@@ -2,7 +2,7 @@ import type { ContractParamsType } from '../types/contract-params.type.ts';
 import { GITHUB_CONTENT_URL } from '../constants/url.ts';
 
 export const fetchContractsData = async (contractFile: string): Promise<ContractParamsType | undefined> => {
-  const baseUrl = `${GITHUB_CONTENT_URL}/moondance-labs/tanssi-symbiotic/staging/contract-addresses`;
+  const baseUrl = `${GITHUB_CONTENT_URL}/moondance-labs/tanssi-symbiotic/main/contract-addresses`;
 
   try {
     const response = await fetch(`${baseUrl}/${contractFile}`);
