@@ -62,7 +62,7 @@ export const useChains = (
 const augmentWithContractData = (data: ChainParamsType[]): Promise<ChainParamsType[]> => {
   return Promise.all(
     data.map(async (chain) => {
-      const contractFile = substrateNetworkToContractFileMapper(chain.substrateNetwork!);
+      const contractFile = substrateNetworkToContractFileMapper(chain.substrateNetwork);
       if (contractFile) {
         chain.contracts = await fetchContractsData(contractFile);
       }
