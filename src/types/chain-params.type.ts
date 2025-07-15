@@ -4,7 +4,7 @@ import type { SubstrateNetworkType } from './substrate-network.type.ts';
 
 export type ChainParamsType = {
   url: string;
-  substrateNetwork?: SubstrateNetworkType;
+  substrateNetwork: SubstrateNetworkType;
   ethereumNetwork?: EthereumNetworkType;
   currentClient?: string;
   latestClient?: string;
