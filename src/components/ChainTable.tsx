@@ -76,7 +76,7 @@ export const ChainTable = ({
               </TableRow>
             )}
             {data.map((chain, index) => {
-              const subscanUrl = substrateNetworkToSubscanUrl(chain.substrateNetwork!);
+              const subscanUrl = substrateNetworkToSubscanUrl(chain.substrateNetwork);
               const isRowOpen = openedIndex === index;
 
               return (
@@ -162,7 +162,7 @@ export const ChainTable = ({
                         <TableCell
                           sx={{
                             backgroundColor:
-                              parseInt(chain.currentRuntime!) < parseInt(chain.latestRuntime!)
+                              parseInt(chain.currentRuntime) < parseInt(chain.latestRuntime)
                                 ? errorColor
                                 : successColor,
                           }}
@@ -172,7 +172,7 @@ export const ChainTable = ({
                         <TableCell
                           sx={{
                             backgroundColor:
-                              parseInt(chain.currentRuntime!) < parseInt(chain.latestRuntime!)
+                              parseInt(chain.currentRuntime) < parseInt(chain.latestRuntime)
                                 ? errorColor
                                 : successColor,
                           }}
@@ -199,7 +199,7 @@ export const ChainTable = ({
                   {!isLoading && chain.contracts && (
                     <CollapsibleRow
                       contractParams={chain.contracts}
-                      ethNetwork={chain.ethereumNetwork!}
+                      ethNetwork={chain.ethereumNetwork}
                       isOpen={isRowOpen}
                     />
                   )}

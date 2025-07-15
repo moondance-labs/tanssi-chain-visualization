@@ -4,6 +4,7 @@ import { fetchChainData } from '../services/chain.service.ts';
 import { fetchContractsData } from '../services/contracts.service.ts';
 import {
   substrateNetworkToContractFileMapper,
+  substrateNetworkToEthereumNetworkMapper,
   substrateRpcUrlToSubstrateNetworkMapper,
 } from '../mappers/substrate-chain-name.mapper.ts';
 
@@ -22,10 +23,21 @@ export const useChains = (
     setLoading(true);
     setError('');
     setChainParams(
-      urls.map((url) => ({
-        url,
-        substrateNetwork: substrateRpcUrlToSubstrateNetworkMapper(url),
-      })),
+      urls.map((url) => {
+        const substrateNetwork = substrateRpcUrlToSubstrateNetworkMapper(url);
+        return {
+          url,
+          substrateNetwork,
+          ethereumNetwork: substrateNetworkToEthereumNetworkMapper(substrateNetwork),
+          currentClient: '',
+          latestClient: '',
+          currentRuntime: '',
+          latestRuntime: '',
+          lastBlock: '',
+          clientReleaseUrl: '',
+          runtimeReleaseUrl: '',
+        };
+      }),
     );
 
     try {
