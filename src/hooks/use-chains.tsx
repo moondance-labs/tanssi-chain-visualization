@@ -2,7 +2,10 @@ import type { ChainParamsType } from '../types/chain-params.type.ts';
 import { useEffect, useState } from 'react';
 import { fetchChainData } from '../services/chain.service.ts';
 import { fetchContractsData } from '../services/contracts.service.ts';
-import { substrateNetworkToContractFileMapper } from '../mappers/substrate-chain-name.mapper.ts';
+import {
+  substrateNetworkToContractFileMapper,
+  substrateRpcUrlToSubstrateNetworkMapper,
+} from '../mappers/substrate-chain-name.mapper.ts';
 
 export const useChains = (
   urls: string[],
@@ -18,6 +21,12 @@ export const useChains = (
   const fetchData = async () => {
     setLoading(true);
     setError('');
+    setChainParams(
+      urls.map((url) => ({
+        url,
+        substrateNetwork: substrateRpcUrlToSubstrateNetworkMapper(url),
+      })),
+    );
 
     try {
       const promises = [];

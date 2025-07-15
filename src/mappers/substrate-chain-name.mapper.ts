@@ -42,3 +42,17 @@ export const substrateNetworkToSubscanUrl = (network: SubstrateNetworkType): str
 
   return table[network] || '';
 };
+
+export const substrateRpcUrlToSubstrateNetworkMapper = (url: string): SubstrateNetworkType => {
+  const table: Record<EthereumNetworkType, string> = {
+    'https://dancebox.tanssi-api.network': SubstrateNetwork.Dancebox,
+    'https://stagebox.tanssi-dev.network': SubstrateNetwork.DanceboxStage,
+    'https://fraa-flashbox-rpc.a.stagenet.tanssi.network': SubstrateNetwork.Flashbox,
+    'https://stagelight.tanssi-dev.network': SubstrateNetwork.Stagelight,
+    'https://dancelight.tanssi-api.network': SubstrateNetwork.Dancelight,
+    'https://moonlight.tanssi-dev.network': SubstrateNetwork.Moonlight,
+    'https://tanssi.tanssi-mainnet.network': SubstrateNetwork.Tanssi,
+  };
+
+  return table[url] || '';
+};
