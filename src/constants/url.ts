@@ -9,14 +9,14 @@ export const GITHUB_API_URL = 'https://api.github.com';
 export const GITHUB_CONTENT_URL = 'https://raw.githubusercontent.com';
 
 export const parachainUrls = [
-  'https://stagebox.tanssi-dev.network',
+  'https://services.tanssi-dev.network/stagebox',
   'https://fraa-flashbox-rpc.a.stagenet.tanssi.network',
   'https://dancebox.tanssi-api.network',
 ];
 
 export const relaychainUrls = [
-  'https://stagelight.tanssi-dev.network',
+  'https://services.tanssi-dev.network/stagelight',
   'https://dancelight.tanssi-api.network',
-  'https://moonlight.tanssi-dev.network',
+  'https://services.tanssi-dev.network/moonlight',
   'https://tanssi.tanssi-mainnet.network',
 ];
