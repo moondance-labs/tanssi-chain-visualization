@@ -37,7 +37,6 @@ export const substrateNetworkToSubscanUrl = (network: SubstrateNetworkType): str
   const table: Record<string, string> = {
     [SubstrateNetwork.Tanssi]: 'https://tanssi.subscan.io',
     [SubstrateNetwork.Dancelight]: 'https://dancelight.subscan.io',
-    [SubstrateNetwork.Dancebox]: 'https://dancebox.subscan.io',
   };
 
   return table[network] || '';
@@ -45,13 +44,13 @@ export const substrateNetworkToSubscanUrl = (network: SubstrateNetworkType): str
 
 export const substrateRpcUrlToSubstrateNetworkMapper = (url: string): SubstrateNetworkType => {
   const table: Record<EthereumNetworkType, string> = {
-    'https://dancebox.tanssi-api.network': SubstrateNetwork.Dancebox,
+    'https://services.tanssi-testnet.network/dancebox': SubstrateNetwork.Dancebox,
     'https://services.tanssi-dev.network/stagebox': SubstrateNetwork.DanceboxStage,
     'https://fraa-flashbox-rpc.a.stagenet.tanssi.network': SubstrateNetwork.Flashbox,
     'https://services.tanssi-dev.network/stagelight': SubstrateNetwork.Stagelight,
-    'https://dancelight.tanssi-api.network': SubstrateNetwork.Dancelight,
+    'https://services.tanssi-testnet.network/dancelight': SubstrateNetwork.Dancelight,
     'https://services.tanssi-dev.network/moonlight': SubstrateNetwork.Moonlight,
-    'https://tanssi.tanssi-mainnet.network': SubstrateNetwork.Tanssi,
+    'https://services.tanssi-mainnet.network/tanssi': SubstrateNetwork.Tanssi,
   };
 
   return table[url] || '';
