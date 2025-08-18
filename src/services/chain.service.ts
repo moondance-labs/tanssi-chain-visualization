@@ -57,13 +57,30 @@ export const fetchChainData = async (url: string): Promise<ChainParamsType> => {
   } = await fetch(`${GITHUB_API_URL}/repos/moondance-labs/tanssi/releases`, {
     headers: getHeaders('github'),
   })
-    .then((r) => (r.ok ? r.json() : []))
+    .then(async (r) => {
+      if (r.ok) {
+        return r.json();
+      }
+
+      console.error("Something went wrong, can't fetch releases.", await r.text());
+
+      return [];
+    })
     .then((arr: ReleaseItemType[]) => {
       let clientRelease: ReleaseItemType = defaultRelease;
       let runtimeRelease: ReleaseItemType = defaultRelease;
 
-      let latestClient = '';
-      let latestRuntime = '';
+      let latestClient = '-';
+      let latestRuntime = '-';
+
+      if (arr.length === 0) {
+        return {
+          latestClient,
+          latestRuntime,
+          clientReleaseUrl: clientRelease.html_url,
+          runtimeReleaseUrl: runtimeRelease.html_url,
+        };
+      }
 
       if (systemChain.includes('box')) {
         clientRelease = arr.find((item: ReleaseItemType) => /^v.*-para$/.test(item.tag_name)) || defaultRelease;
