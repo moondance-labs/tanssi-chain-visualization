@@ -44,7 +44,6 @@ export const substrateNetworkToSubscanUrl = (network: SubstrateNetworkType): str
 
 export const substrateRpcUrlToSubstrateNetworkMapper = (url: string): SubstrateNetworkType => {
   const table: Record<EthereumNetworkType, string> = {
-    'https://services.tanssi-testnet.network/dancebox': SubstrateNetwork.Dancebox,
     'https://services.tanssi-dev.network/stagebox': SubstrateNetwork.DanceboxStage,
     'https://fraa-flashbox-rpc.a.stagenet.tanssi.network': SubstrateNetwork.Flashbox,
     'https://services.tanssi-dev.network/stagelight': SubstrateNetwork.Stagelight,
