@@ -11,7 +11,6 @@ export const GITHUB_CONTENT_URL = 'https://raw.githubusercontent.com';
 export const parachainUrls = [
   'https://services.tanssi-dev.network/stagebox',
   'https://fraa-flashbox-rpc.a.stagenet.tanssi.network',
-  'https://services.tanssi-testnet.network/dancebox',
 ];
 
 export const relaychainUrls = [
