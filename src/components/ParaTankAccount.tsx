@@ -13,9 +13,23 @@ export const ParaTankAccount = () => {
         Parachain Tank Account
       </Typography>
 
+      <Alert severity="info" sx={{ mb: 3 }}>
+        <Typography variant="body2" gutterBottom>
+          <strong>What is a Parachain Tank Account?</strong>
+        </Typography>
+        <Typography variant="body2" component="div">
+          • Used to pay for block production credits
+          <br />• Calculated as{' '}
+          <code style={{ backgroundColor: '#e0e0e0', padding: '2px 6px', borderRadius: '4px' }}>
+            hash('modlpy/serpayment' + para_id)
+          </code>
+          <br />• The same address across all Tanssi runtimes (Dancelight/Starlight)
+        </Typography>
+      </Alert>
+
       <Box display="flex">
         <TextField
-          label="Enter Parahcain ID"
+          label="Enter Parachain ID"
           type="number"
           value={paraId}
           onChange={(e) => setParaId(e.target.value)}
