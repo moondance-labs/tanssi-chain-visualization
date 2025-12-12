@@ -16,7 +16,7 @@ import type { Mode } from '../hooks/use-mode.tsx';
 
 const pages = [
   { label: 'Dashboard', path: '#/dashboard' },
-  { label: 'Pallet Error Checker', path: '#/pallet-errors' },
+  { label: 'Tools', path: '#/tools' },
   { label: 'Chopsticks Tool', path: '#/chopsticks-tool' },
 ];
 

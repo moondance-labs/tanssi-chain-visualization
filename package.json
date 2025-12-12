@@ -20,6 +20,9 @@
     "@polkadot/api": "^16.4.1",
     "@polkadot/util": "^13.5.3",
     "buffer": "^6.0.3",
+    "copy-to-clipboard": "^3.3.3",
+    "install": "^0.13.0",
+    "npm": "^11.7.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.3"
