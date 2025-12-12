@@ -17,7 +17,7 @@ export const PalletErrorChecker = () => {
   } = useErrorChecker();
 
   return (
-    <Box sx={{ maxWidth: 600 }}>
+    <Box>
       <Typography variant="h4" gutterBottom>
         Pallet Error Checker
       </Typography>
