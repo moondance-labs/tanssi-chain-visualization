@@ -45,8 +45,12 @@ export const Dashboard = () => {
           </IconButton>
         </Box>
       </Box>
-      <ChainTable title="Parachains" data={parachains} isLoading={isParachainsLoading} error={parachainError} />
-      <ChainTable title="Relaychains" data={relaychains} isLoading={isRelaychainsLoading} error={relaychainError} />
+      {parachainUrls.length > 0 && (
+        <ChainTable title="Parachains" data={parachains} isLoading={isParachainsLoading} error={parachainError} />
+      )}
+      {relaychainUrls.length > 0 && (
+        <ChainTable title="Relaychains" data={relaychains} isLoading={isRelaychainsLoading} error={relaychainError} />
+      )}
     </Box>
   );
 };
