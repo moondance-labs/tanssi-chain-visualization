@@ -14,8 +14,8 @@ export const parachainUrls = [
 ];
 
 export const relaychainUrls = [
-  'https://services.tanssi-dev.network/stagelight',
-  'https://services.tanssi-testnet.network/dancelight',
-  'https://services.tanssi-dev.network/moonlight',
+  // 'https://services.tanssi-dev.network/stagelight',
+  // 'https://services.tanssi-testnet.network/dancelight',
+  // 'https://services.tanssi-dev.network/moonlight',
   'https://services.tanssi-mainnet.network/tanssi',
 ];
